@@ -2,6 +2,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, Heart, MapPin, Phone, ShieldCheck, ShoppingBag } from "lucide-react";
 import { Wordmark } from "./Wordmark";
 import { BRAND } from "@/data/atelier";
+import { useCart } from "./CartContext";
 
 type Props = {
   variant?: "home" | "inner";
@@ -17,6 +18,7 @@ export function TopBar({
   cartCount = 2,
 }: Props) {
   const router = useRouter();
+  const cart = useCart();
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/90 px-4 py-3 backdrop-blur">
@@ -78,7 +80,7 @@ export function TopBar({
           >
             <ShoppingBag className="size-4 text-foreground" />
             <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-primary text-[9px] font-semibold text-primary-foreground">
-              {cartCount}
+              {cart.count || cartCount}
             </span>
           </Link>
         </div>

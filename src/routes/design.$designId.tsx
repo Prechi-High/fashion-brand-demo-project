@@ -23,6 +23,7 @@ import {
   waLink,
 } from "@/data/atelier";
 import clientAvatar from "@/assets/client-blessing.jpg";
+import { useCart } from "@/components/atelier/CartContext";
 
 export const Route = createFileRoute("/design/$designId")({
   loader: ({ params }) => {
@@ -69,6 +70,7 @@ function DesignPage() {
   const { design } = Route.useLoaderData();
   const testimonial = testimonials.find((review) => review.item === design.name) ?? testimonials[1]!;
   const [selectedColor, setSelectedColor] = useState(design.colors[0]);
+  const { addItem } = useCart();
 
   return (
     <AppShell>
@@ -176,13 +178,23 @@ function DesignPage() {
           <p className="mt-3 text-[11px] leading-relaxed text-foreground">{design.about}</p>
         </details>
 
-        <Link
-          to="/create-my-look"
-          search={{ design: design.id }}
-          className="mt-3 flex items-center justify-center gap-2 rounded-full bg-foreground py-3 text-xs font-semibold text-background"
-        >
-          {design.madeToOrder ? "Create My Look" : "Buy now"} <ArrowRight className="size-3.5" />
-        </Link>
+        {design.madeToOrder ? (
+          <Link
+            to="/create-my-look"
+            search={{ design: design.id }}
+            className="mt-3 flex items-center justify-center gap-2 rounded-full bg-foreground py-3 text-xs font-semibold text-background"
+          >
+            Create My Look <ArrowRight className="size-3.5" />
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={() => addItem(design, selectedColor)}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-foreground py-3 text-xs font-semibold text-background"
+          >
+            Buy now <ArrowRight className="size-3.5" />
+          </button>
+        )}
       </section>
 
       <section className="border-y border-border px-4 py-4">

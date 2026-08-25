@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { AppShell } from "@/components/atelier/AppShell";
 import { TopBar } from "@/components/atelier/TopBar";
-import { designs, formatNaira, heroImage } from "@/data/atelier";
+import { designs, formatNaira, heroImage, readyToWear } from "@/data/atelier";
 
 export const Route = createFileRoute("/collections")({
   head: () => ({
@@ -111,7 +111,8 @@ function CollectionsPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-4 py-4">
-        {list.map((d) => (
+        {list.map((d, index) => (
+          <>
           <Link
             key={d.id}
             to="/design/$designId"
@@ -150,6 +151,17 @@ function CollectionsPage() {
               </div>
             </div>
           </Link>
+          {index % 2 === 1 && (
+            <div className="col-span-2 flex gap-3 overflow-x-auto rounded-2xl border border-border bg-accent/30 p-3">
+              {readyToWear.map((r) => (
+                <Link key={r.id} to="/design/$designId" params={{ designId: r.id }} className="w-32 shrink-0 overflow-hidden rounded-xl border border-border bg-card">
+                  <img src={r.image} alt={r.name} loading="lazy" width={700} height={900} className="h-36 w-full object-cover" />
+                  <div className="p-2"><p className="text-[10px] font-medium text-foreground">{r.name}</p><p className="mt-1 text-[10px] text-primary">{formatNaira(r.price)}</p><span className="mt-2 block rounded-full bg-primary py-1.5 text-center text-[9px] font-semibold text-primary-foreground">Buy now</span></div>
+                </Link>
+              ))}
+            </div>
+          )}
+          </>
         ))}
       </div>
 

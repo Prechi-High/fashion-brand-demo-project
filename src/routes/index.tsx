@@ -208,6 +208,24 @@ function Index() {
       <section className="mt-6">
         <div className="flex items-end justify-between px-4">
           <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-primary">In the wardrobe now</p>
+            <h2 className="mt-1 font-display text-2xl leading-none text-foreground">Ready to wear</h2>
+          </div>
+          <Link to="/collections" className="text-[10px] text-primary">See all</Link>
+        </div>
+        <div className="mt-4 flex gap-3 overflow-x-auto px-4 pb-2">
+          {readyToWear.map((r) => (
+            <article key={r.id} className="w-36 shrink-0 overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={r.image} alt={r.name} loading="lazy" width={700} height={900} className="h-44 w-full object-cover" />
+              <div className="flex flex-col gap-2 p-3"><h3 className="text-[11px] font-medium text-foreground">{r.name}</h3><p className="text-[11px] text-primary">{formatNaira(r.price)}</p><Link to="/design/$designId" params={{ designId: r.id }} className="flex items-center justify-center rounded-full bg-primary px-2 py-2 text-[10px] font-semibold text-primary-foreground">Buy now <ArrowRight className="ml-1 size-3" /></Link></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-6">
+        <div className="flex items-end justify-between px-4">
+          <div>
             <p className="text-[10px] uppercase tracking-[0.2em] text-primary">Loved and worn</p>
             <h2 className="mt-1 font-display text-2xl leading-none text-foreground">
               What our clients say
