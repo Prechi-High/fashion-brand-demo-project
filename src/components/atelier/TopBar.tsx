@@ -74,8 +74,8 @@ export function TopBar({
           )}
 
           <Link
-            to="/collections"
-            aria-label="Bag"
+            to="/cart"
+            aria-label="Cart"
             className="relative flex size-9 items-center justify-center rounded-full border border-border bg-card"
           >
             <ShoppingBag className="size-4 text-foreground" />
