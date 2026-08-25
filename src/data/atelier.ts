@@ -144,8 +144,7 @@ export const designs: Design[] = [
     name: "Sand Two Piece",
     price: 65000,
     blurb: "Easy elegance for warm afternoons.",
-    about:
-      "A relaxed linen co-ord in sage, finished with drawstring detailing and deep pockets.",
+    about: "A relaxed linen co-ord in sage, finished with drawstring detailing and deep pockets.",
     days: "5 - 7 Days",
     madeToOrder: false,
     category: "Two Piece",
@@ -184,16 +183,25 @@ export const testimonials = [
     name: "Blessing O.",
     quote:
       "The process was so smooth and the dress was beyond my expectations. I felt like the best version of myself!",
+    item: "The Amara Dress",
+    price: 85000,
+    image: amara,
   },
   {
     name: "Ifeoma A.",
     quote:
       "The dress was beyond my expectations. The fit, the fabric, everything was just perfect. I felt like a queen!",
+    item: "Emerald Grace Dress",
+    price: 95000,
+    image: emerald,
   },
   {
     name: "Chidinma E.",
     quote:
       "They listened to every detail I described and delivered ahead of time. Ibitoye Olamide Fashionhome is my go-to now.",
+    item: "Royal Purple Gown",
+    price: 90000,
+    image: purple,
   },
 ];
 

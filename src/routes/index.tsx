@@ -38,7 +38,10 @@ export const Route = createFileRoute("/")({
         content:
           "Made for the woman who knows what she wants. Custom-made dresses, native wear and bridal, tailored to your measurements in Benin City, Nigeria.",
       },
-      { property: "og:title", content: "Ibitoye Olamide Fashionhome — Custom Made Fashion in Benin City" },
+      {
+        property: "og:title",
+        content: "Ibitoye Olamide Fashionhome — Custom Made Fashion in Benin City",
+      },
       {
         property: "og:description",
         content:
@@ -57,8 +60,6 @@ const stats = [
 ];
 
 function Index() {
-  const testimonial = testimonials[0]!;
-
   return (
     <AppShell>
       <TopBar variant="home" />
@@ -204,62 +205,115 @@ function Index() {
         ))}
       </section>
 
-      <section className="mt-5 grid grid-cols-2 gap-3 px-4">
-        <div className="rounded-2xl border border-border bg-card p-3">
-          <div className="flex items-center justify-between">
-            <h2 className="text-[10px] uppercase tracking-wide text-muted-foreground">
+      <section className="mt-6">
+        <div className="flex items-end justify-between px-4">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-primary">Loved and worn</p>
+            <h2 className="mt-1 font-display text-2xl leading-none text-foreground">
               What our clients say
             </h2>
-            <span className="text-[10px] text-primary">See all</span>
           </div>
-          <img
-            src={clientAvatar}
-            alt={testimonial.name}
-            loading="lazy"
-            width={512}
-            height={512}
-            className="mt-3 size-9 rounded-full object-cover"
-          />
-          <div className="mt-2 flex">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-3 fill-primary text-primary" />
-            ))}
-          </div>
-          <p className="mt-2 text-[10px] leading-relaxed text-foreground">"{testimonial.quote}"</p>
-          <p className="mt-2 text-[10px] text-muted-foreground">– {testimonial.name}</p>
+          <span className="text-[10px] text-muted-foreground">Swipe to explore</span>
         </div>
-
-        <div>
-          <div className="flex items-center justify-between">
-            <h2 className="text-[10px] uppercase tracking-wide text-muted-foreground">
-              Ready to wear
-            </h2>
-            <Link to="/collections" className="text-[10px] text-primary">
-              See all
-            </Link>
-          </div>
-          <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-            {readyToWear.map((r) => (
-              <Link
-                key={r.id}
-                to="/collections"
-                className="w-20 shrink-0 overflow-hidden rounded-xl border border-border bg-card"
-              >
+        <div className="mt-4 flex gap-3 overflow-x-auto px-4 pb-2">
+          {testimonials.map((review) => (
+            <article
+              key={review.name}
+              className="flex w-[17.5rem] shrink-0 flex-col gap-3 rounded-2xl border border-border bg-card p-3"
+            >
+              <div className="flex gap-3">
                 <img
-                  src={r.image}
-                  alt={r.name}
+                  src={review.image}
+                  alt={review.item}
                   loading="lazy"
                   width={700}
                   height={900}
-                  className="h-24 w-full object-cover"
+                  className="h-28 w-20 shrink-0 rounded-xl object-cover"
                 />
-                <div className="p-1.5">
-                  <p className="text-[9px] leading-tight text-foreground">{r.name}</p>
-                  <p className="text-[9px] text-primary">{formatNaira(r.price)}</p>
+                <div className="flex min-w-0 flex-col justify-between py-1">
+                  <div>
+                    <p className="text-[9px] uppercase tracking-wide text-muted-foreground">
+                      Purchased piece
+                    </p>
+                    <h3 className="mt-1 font-display text-lg leading-tight text-foreground">
+                      {review.item}
+                    </h3>
+                  </div>
+                  <p className="text-[11px] font-medium text-primary">
+                    {formatNaira(review.price)}
+                  </p>
                 </div>
-              </Link>
-            ))}
+              </div>
+              <div className="border-t border-border pt-3">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={review.name === "Blessing O." ? clientAvatar : review.image}
+                    alt=""
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className="size-7 rounded-full object-cover"
+                  />
+                  <span className="text-[10px] font-medium text-foreground">{review.name}</span>
+                  <span className="ml-auto flex" aria-label="5 out of 5 stars">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="size-3 fill-primary text-primary" />
+                    ))}
+                  </span>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-foreground">
+                  &quot;{review.quote}&quot;
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-7">
+        <div className="flex items-end justify-between px-4">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-primary">
+              In the wardrobe now
+            </p>
+            <h2 className="mt-1 font-display text-2xl leading-none text-foreground">
+              Ready to wear
+            </h2>
           </div>
+          <Link to="/collections" className="text-[10px] text-primary">
+            See all
+          </Link>
+        </div>
+        <div className="mt-4 flex gap-3 overflow-x-auto px-4 pb-2">
+          {readyToWear.map((r) => (
+            <article
+              key={r.id}
+              className="w-36 shrink-0 overflow-hidden rounded-2xl border border-border bg-card"
+            >
+              <img
+                src={r.image}
+                alt={r.name}
+                loading="lazy"
+                width={700}
+                height={900}
+                className="h-44 w-full object-cover"
+              />
+              <div className="flex flex-col gap-2 p-3">
+                <div>
+                  <h3 className="text-[11px] font-medium leading-tight text-foreground">
+                    {r.name}
+                  </h3>
+                  <p className="mt-1 text-[11px] text-primary">{formatNaira(r.price)}</p>
+                </div>
+                <Link
+                  to="/collections"
+                  className="flex items-center justify-center gap-1 rounded-full bg-primary px-2 py-2 text-[10px] font-semibold text-primary-foreground"
+                >
+                  Buy now <ArrowRight className="size-3" />
+                </Link>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
