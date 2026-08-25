@@ -306,7 +306,8 @@ function Index() {
                   <p className="mt-1 text-[11px] text-primary">{formatNaira(r.price)}</p>
                 </div>
                 <Link
-                  to="/collections"
+                  to="/design/$designId"
+                  params={{ designId: r.id }}
                   className="flex items-center justify-center gap-1 rounded-full bg-primary px-2 py-2 text-[10px] font-semibold text-primary-foreground"
                 >
                   Buy now <ArrowRight className="size-3" />

@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowRight,
+  ChevronDown,
   Clock,
   Diamond,
   MessageSquare,
@@ -16,6 +18,7 @@ import {
   clientPhotos,
   designs,
   formatNaira,
+  readyToWear,
   testimonials,
   waLink,
 } from "@/data/atelier";
@@ -23,7 +26,7 @@ import clientAvatar from "@/assets/client-blessing.jpg";
 
 export const Route = createFileRoute("/design/$designId")({
   loader: ({ params }) => {
-    const design = designs.find((d) => d.id === params.designId);
+    const design = [...designs, ...readyToWear].find((d) => d.id === params.designId);
     if (!design) throw notFound();
     return { design };
   },
@@ -64,7 +67,8 @@ const steps = [
 
 function DesignPage() {
   const { design } = Route.useLoaderData();
-  const testimonial = testimonials[1]!;
+  const testimonial = testimonials.find((review) => review.item === design.name) ?? testimonials[1]!;
+  const [selectedColor, setSelectedColor] = useState(design.colors[0]);
 
   return (
     <AppShell>
@@ -126,9 +130,9 @@ function DesignPage() {
           <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
             <Scissors className="size-4 text-primary" />
             <span>
-              Custom Made
+              {design.madeToOrder ? "Custom Made" : "Ready to Wear"}
               <br />
-              Just for you
+              {design.madeToOrder ? "Just for you" : "Available now"}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
@@ -142,28 +146,43 @@ function DesignPage() {
         </div>
       </section>
 
-      <section className="grid grid-cols-[1.4fr_1fr] gap-4 px-4 py-4">
-        <div>
+      <section className="px-4 py-4">
+        <div className="rounded-2xl border border-border bg-card p-3">
           <h2 className="text-[11px] uppercase tracking-wide text-muted-foreground">
-            About this design
+            {design.madeToOrder ? "Fabric & available colors" : "Available colors"}
           </h2>
-          <p className="mt-2 text-[11px] leading-relaxed text-foreground">{design.about}</p>
-        </div>
-        <div>
-          <h2 className="text-[11px] uppercase tracking-wide text-muted-foreground">
-            Fabric & color
-          </h2>
-          <div className="mt-2 flex gap-2">
-            {design.colors.map((c) => (
-              <span
-                key={c}
-                className="size-7 rounded-full border border-border"
-                style={{ backgroundColor: c }}
-              />
+          <div className="mt-3 flex items-center gap-3">
+            {design.colors.map((color) => (
+              <button
+                key={color}
+                type="button"
+                aria-label={`Select color ${color}`}
+                aria-pressed={selectedColor === color}
+                onClick={() => setSelectedColor(color)}
+                className={`flex size-9 items-center justify-center rounded-full border ${selectedColor === color ? "border-primary" : "border-border"}`}
+              >
+                <span className="size-6 rounded-full border border-border" style={{ backgroundColor: color }} />
+              </button>
             ))}
           </div>
-          <p className="mt-2 text-[10px] text-muted-foreground">More colors available</p>
+          <p className="mt-2 text-[10px] text-muted-foreground">Selected color: {selectedColor}</p>
         </div>
+
+        <details className="group mt-3 rounded-2xl border border-border bg-card px-3 py-3">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-[11px] uppercase tracking-wide text-muted-foreground">
+            About this design
+            <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+          </summary>
+          <p className="mt-3 text-[11px] leading-relaxed text-foreground">{design.about}</p>
+        </details>
+
+        <Link
+          to="/create-my-look"
+          search={{ design: design.id }}
+          className="mt-3 flex items-center justify-center gap-2 rounded-full bg-foreground py-3 text-xs font-semibold text-background"
+        >
+          {design.madeToOrder ? "Create My Look" : "Buy now"} <ArrowRight className="size-3.5" />
+        </Link>
       </section>
 
       <section className="border-y border-border px-4 py-4">

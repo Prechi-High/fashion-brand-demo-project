@@ -154,10 +154,46 @@ export const designs: Design[] = [
   },
 ];
 
-export const readyToWear = [
-  { id: "luxe-shirt", name: "Luxe Shirt Dress", price: 45000, image: rtwShirt },
-  { id: "floral-midi", name: "Floral Midi", price: 38000, image: rtwFloral },
-  { id: "relaxed-coord", name: "Relaxed Co-ord", price: 42000, image: rtwCoord },
+export const readyToWear: Design[] = [
+  {
+    id: "luxe-shirt",
+    name: "Luxe Shirt Dress",
+    price: 45000,
+    blurb: "A polished everyday essential, ready to wear today.",
+    about: "Cut in a fluid silhouette with an easy button front, the Luxe Shirt Dress brings effortless polish to workdays, lunches and last-minute plans.",
+    days: "Ready now",
+    madeToOrder: false,
+    category: "Ready to Wear",
+    fit: "Midi",
+    image: rtwShirt,
+    colors: ["#C7A17A", "#2B2B2B", "#EFE7DA"],
+  },
+  {
+    id: "floral-midi",
+    name: "Floral Midi",
+    price: 38000,
+    blurb: "A joyful print for easy, elevated days.",
+    about: "A softly structured floral midi with a flattering waist and movement through the skirt. Finished and ready for immediate purchase.",
+    days: "Ready now",
+    madeToOrder: false,
+    category: "Ready to Wear",
+    fit: "Midi",
+    image: rtwFloral,
+    colors: ["#D9A7A0", "#3F5C2A", "#EFE7DA"],
+  },
+  {
+    id: "relaxed-coord",
+    name: "Relaxed Co-ord",
+    price: 42000,
+    blurb: "Easy elegance for warm afternoons.",
+    about: "A relaxed linen co-ord with drawstring detailing and deep pockets, made for days when comfort still needs to look considered.",
+    days: "Ready now",
+    madeToOrder: false,
+    category: "Ready to Wear",
+    fit: "Short",
+    image: rtwCoord,
+    colors: ["#A8B98A", "#EFE7DA", "#C7A17A"],
+  },
 ];
 
 export const categories = [
